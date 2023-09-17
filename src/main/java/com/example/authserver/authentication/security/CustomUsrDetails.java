@@ -14,6 +14,11 @@ import java.util.Set;
 public class CustomUsrDetails implements UserDetails {
 
     private static final long serialVersionUID = 1L;
+
+    public UserEntity getUser() {
+        return user;
+    }
+
     private UserEntity user;
 
     public CustomUsrDetails(UserEntity user) {
@@ -28,6 +33,8 @@ public class CustomUsrDetails implements UserDetails {
         for(RoleEntity role : roles) {authorities.add(new SimpleGrantedAuthority(role.getName()));}
         return authorities;
     }
+
+    public Long getId() {return user.getId();}
 
     @Override
     public String getPassword() {return user.getPassword();}

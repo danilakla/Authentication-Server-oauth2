@@ -1,10 +1,13 @@
 package com.example.authserver.authentication.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "tokens")
 public class TokenEntity {
 

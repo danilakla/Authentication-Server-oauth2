@@ -1,7 +1,8 @@
 package com.example.authserver.authentication.configs;
 
+import com.example.authserver.authentication.repository.UserRepository;
 import com.example.authserver.authentication.security.CustomUsrDetailsService;
-import com.example.authserver.authentication.security.TokenService;
+import com.example.authserver.authentication.security.JwtService;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -36,6 +37,7 @@ public class AppSecurityConfig {
 
     private final RsaProperties rsaKeys;
     private final LogoutHandler logoutHandler;
+    private final UserRepository userRepo;
 
 
     @Bean
@@ -45,7 +47,7 @@ public class AppSecurityConfig {
 
     @Bean
     public UserDetailsService customUserDetailsService() {
-        return new CustomUsrDetailsService();
+        return new CustomUsrDetailsService(userRepo);
     }
 
     @Bean
@@ -69,8 +71,8 @@ public class AppSecurityConfig {
     }
 
     @Bean
-    TokenService tokenService() {
-        return new TokenService(jwtEncoder());
+    JwtService jwtService() {
+        return new JwtService(jwtEncoder());
     }
 
     @Bean
@@ -80,6 +82,9 @@ public class AppSecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
+                        .requestMatchers("/test").permitAll()
+
+                        .requestMatchers("/registration").permitAll()
                         .requestMatchers("/token/refresh").permitAll()
                         .requestMatchers("/admin").hasAuthority("SCOPE_adm")
                         .requestMatchers("/user").hasAuthority("SCOPE_usr")
