@@ -20,7 +20,7 @@ public class UserService {
         var user = UserEntity.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .roles(roleService.getUserRole())
+                .roles(roleService.getAdminRole())
                 .build();
         var savedUser = userRepository.save(user);
         return  savedUser;

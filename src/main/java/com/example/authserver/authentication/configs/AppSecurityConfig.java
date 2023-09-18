@@ -79,12 +79,16 @@ public class AppSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http
+                .cors(cors->cors.disable())
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
-                        .requestMatchers("/test").permitAll()
+                        .requestMatchers("/test").hasAuthority("SCOPE_user")
+                        .requestMatchers("/testUser").hasAnyAuthority("SCOPE_user","SCOPE_admin" )
+                        .requestMatchers("/testAdmin").hasAuthority("SCOPE_admin")
+                        .requestMatchers("/authenticate").permitAll()
 
-                        .requestMatchers("/registration").permitAll()
+                        .requestMatchers("/register").permitAll()
                         .requestMatchers("/token/refresh").permitAll()
                         .requestMatchers("/admin").hasAuthority("SCOPE_adm")
                         .requestMatchers("/user").hasAuthority("SCOPE_usr")

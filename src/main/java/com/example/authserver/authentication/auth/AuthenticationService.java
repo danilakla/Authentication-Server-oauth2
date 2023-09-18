@@ -28,7 +28,7 @@ public class AuthenticationService {
   }
   public AuthenticationResponse register(RegisterRequest request) {
 
-    if(isExit(request.getEmail())){
+    if(!isExit(request.getEmail())){
       userService.saveUser(request);
     }else{
       return null;
@@ -36,7 +36,7 @@ public class AuthenticationService {
     return new AuthenticationResponse();
   }
 //
-  public AuthenticationResponse authenticate(AuthenticationRequest request) {
+  public Object authenticate(AuthenticationRequest request) {
 
     UsernamePasswordAuthenticationToken authenticationToken =
             new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword());
@@ -47,7 +47,10 @@ public class AuthenticationService {
     String refresh_token = jwtService.generateRefreshToken(user);
     tokenService.revokeAllUserTokens(user);
     tokenService.saveUserToken(user, access_token);
-    return null;
+    return new Object(){
+      public final  String acc=access_token;
+      public  final String  ref =      refresh_token;
+    };
 
   }
 
@@ -64,7 +67,10 @@ public class AuthenticationService {
 
     tokenService.revokeAllUserTokens(user);
     tokenService.saveUserToken(user, access_token);
-    return null;
+    return new Object(){
+      public final  String acc=access_token;
+      public  final String  ref =      refresh_token;
+    };
 
   }
 }
