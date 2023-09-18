@@ -37,7 +37,11 @@ public class AuthController {
 
     @GetMapping("/test")
     public   String sdafscxz(){
-        return "plain us test";
+        return "plai645n us test";
+    }
+    @GetMapping("/test2")
+    public   String sdvcafscxz(){
+        return "plain 321us test";
     }
 
 

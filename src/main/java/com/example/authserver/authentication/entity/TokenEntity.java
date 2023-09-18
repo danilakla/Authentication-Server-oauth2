@@ -12,14 +12,17 @@ import lombok.*;
 public class TokenEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     public Integer id;
 
     @Column(unique = true)
     public String token;
 
+    @JoinColumn(name = "revoked")
 
     public boolean revoked;
+    @JoinColumn(name = "expired ")
 
     public boolean expired;
 

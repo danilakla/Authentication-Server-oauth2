@@ -17,9 +17,12 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class AuthenticationService {
   private final JwtService jwtService;
-  private  final UserService userService;
+
+
+  private final UserService userService;
   private final AuthenticationManager authenticationManager;
   private final CustomUsrDetailsService customUserDetailsService;
+
   private final TokenService tokenService;
 
 

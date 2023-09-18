@@ -83,7 +83,7 @@ public class AppSecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
-                        .requestMatchers("/test").hasAuthority("SCOPE_user")
+                        .requestMatchers("/test").permitAll()
                         .requestMatchers("/testUser").hasAnyAuthority("SCOPE_user","SCOPE_admin" )
                         .requestMatchers("/testAdmin").hasAuthority("SCOPE_admin")
                         .requestMatchers("/authenticate").permitAll()
