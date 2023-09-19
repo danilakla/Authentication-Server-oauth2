@@ -4,6 +4,7 @@ import com.example.authserver.authentication.entity.TokenEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,4 +22,11 @@ public interface TokenRepository extends JpaRepository<TokenEntity, Long> {
   List<TokenEntity> findAllValidTokenByUser(Long id);
 
   Optional<TokenEntity> findByToken(String token);
+
+
+  @Procedure(name = "token.addToken" )
+  Object ProcTokenInser( Long p_userid,String p_token);
+  @Procedure(name = "token.revokeToken" )
+  Object revokeToken( Long p_user_id);
+
 }
