@@ -87,11 +87,8 @@ public class AppSecurityConfig {
                         .requestMatchers("/testUser").hasAnyAuthority("SCOPE_user","SCOPE_admin" )
                         .requestMatchers("/testAdmin").hasAuthority("SCOPE_admin")
                         .requestMatchers("/authenticate").permitAll()
-
                         .requestMatchers("/register").permitAll()
                         .requestMatchers("/token/refresh").permitAll()
-                        .requestMatchers("/admin").hasAuthority("SCOPE_adm")
-                        .requestMatchers("/user").hasAuthority("SCOPE_usr")
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2->oauth2.jwt(Customizer.withDefaults()))
