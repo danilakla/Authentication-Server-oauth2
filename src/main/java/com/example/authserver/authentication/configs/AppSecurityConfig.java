@@ -82,6 +82,7 @@ public class AppSecurityConfig {
                 .cors(cors->cors.disable())
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth -> auth
+                        .requestMatchers("/image").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/test").permitAll()
                         .requestMatchers("/testUser").hasAnyAuthority("SCOPE_user","SCOPE_admin" )

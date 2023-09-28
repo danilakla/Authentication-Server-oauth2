@@ -6,6 +6,13 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "profiles")
+@NamedStoredProcedureQuery(name = "profile.insertUser",procedureName = "INSERT_PROFILE",parameters = {
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_about",type = String.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_last_name",type = String.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_name",type = String.class),
+
+        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "p_success",type = Integer.class),
+})
 public class ProfileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
