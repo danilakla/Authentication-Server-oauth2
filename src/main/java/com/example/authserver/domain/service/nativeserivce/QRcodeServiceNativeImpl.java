@@ -6,7 +6,9 @@ import com.example.authserver.domain.entity.ContentEntity;
 import com.example.authserver.domain.entity.QREntity;
 import com.example.authserver.domain.repository.QRRepository;
 import com.example.authserver.domain.service.ContentService;
+import com.example.authserver.domain.service.GenerationQRImageService;
 import com.example.authserver.domain.service.QRcodeService;
+import com.google.zxing.WriterException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,13 +23,15 @@ public class QRcodeServiceNativeImpl implements QRcodeService {
 
     public final QRRepository qrRepository;
     public final ContentService contentService;
+    private  final GenerationQRImageService generationQRImageService;
 
-    public Object saveQRcode(QRcodeInsertDto qrCodeInsertDto, Long profileId) {
-        //TODO SERVICE WITH GENERATION QRIMAGE
-        //TODO return id profile
+    public Object saveQRcode(QRcodeInsertDto qrCodeInsertDto, Long profileId) throws IOException, WriterException {
+        //TODO SERVICE WITH GENERATION QRIMAGE - DONE
+        //TODO return id qr - IN PROGRESS
         var id = (Long) qrRepository.initQrCode(LocalDateTime.now(), qrCodeInsertDto.getDescription(), new byte[]{}, qrCodeInsertDto.getName(), profileId);
+        var result =generationQRImageService.generateQRImage(id);
         var entity = qrRepository.getQREntityById(id);
-
+        entity.setImage(result);
         var updatedEntity = saveContentsToQr(entity, qrCodeInsertDto.getContents());
         qrRepository.save(updatedEntity);
         return id;
