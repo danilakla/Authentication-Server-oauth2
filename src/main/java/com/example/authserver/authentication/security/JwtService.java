@@ -24,7 +24,7 @@ public class JwtService  {
         this.jwtEncoder = jwtEncoder;
     }
 
-    public String generateAccessToken(CustomUsrDetails usrDetails) {
+    public String generateAccessToken(CustomUsrDetails usrDetails, Long profileId) {
         Instant now = Instant.now();
         String scope = usrDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -35,13 +35,14 @@ public class JwtService  {
                 .issuedAt(now)
                 .expiresAt(now.plus(2, ChronoUnit.MINUTES))
                 .subject(usrDetails.getUsername())
+                .claim("profile_id", profileId)
                 .claim("scope", scope)
                 .build();
         return this.jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
 
 
-    public String generateRefreshToken(CustomUsrDetails usrDetails) {
+    public String generateRefreshToken(CustomUsrDetails usrDetails, Long profileId) {
         Instant now = Instant.now();
         String scope = usrDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -52,6 +53,8 @@ public class JwtService  {
                 .issuedAt(now)
                 .expiresAt(now.plus(10, ChronoUnit.MINUTES))
                 .subject(usrDetails.getUsername())
+                .claim("profile_id", profileId)
+
                 .claim("scope", scope)
                 .build();
         return this.jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();

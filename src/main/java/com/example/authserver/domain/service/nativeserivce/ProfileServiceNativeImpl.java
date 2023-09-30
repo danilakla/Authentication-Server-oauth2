@@ -14,8 +14,7 @@ public class ProfileServiceNativeImpl implements ProfileService {
 
     public Object saveProfile(ProfileInitDto profileInitDto) {
         try {
-            //TODO RETURN PROFILE ID AND SET THE VALUE TO JWT TOKEN
-            var isSuccess = (Integer)profileRepository.initProfile(profileInitDto.getAbout(), profileInitDto.getLastName(), profileInitDto.getName());
+            var profileId = (Integer)profileRepository.initProfile(profileInitDto.getAbout(), profileInitDto.getLastName(), profileInitDto.getName());
         } catch (Exception e) {
             System.out.println(e);
 

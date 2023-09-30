@@ -5,6 +5,8 @@ import com.example.authserver.authentication.security.CustomUsrDetailsService;
 import com.example.authserver.authentication.security.JwtService;
 import com.example.authserver.authentication.service.TokenService;
 import com.example.authserver.authentication.service.UserService;
+import com.example.authserver.domain.dto.ProfileInitDto;
+import com.example.authserver.domain.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,6 +24,7 @@ public class AuthenticationService {
   private final UserService userService;
   private final AuthenticationManager authenticationManager;
   private final CustomUsrDetailsService customUserDetailsService;
+  private final ProfileService profileService;
 
   private final TokenService tokenService;
 
@@ -46,8 +49,10 @@ public class AuthenticationService {
     Authentication auth = authenticationManager.authenticate(authenticationToken);
 
     CustomUsrDetails user = (CustomUsrDetails) customUserDetailsService.loadUserByUsername(request.getEmail());
-    String access_token = jwtService.generateAccessToken(user);
-    String refresh_token = jwtService.generateRefreshToken(user);
+    //TODO REFACTORING
+    Long profileId= (Long) profileService.saveProfile(new ProfileInitDto());
+    String access_token = jwtService.generateAccessToken(user, profileId);
+    String refresh_token = jwtService.generateRefreshToken(user, profileId);
     tokenService.revokeAllUserTokens(user);
     tokenService.saveUserToken(user, access_token);
     return new Object(){
@@ -65,8 +70,9 @@ public class AuthenticationService {
 
     String email = jwtService.parseToken(refreshToken);
     CustomUsrDetails user = (CustomUsrDetails) customUserDetailsService.loadUserByUsername(email);
-    String access_token = jwtService.generateAccessToken(user);
-    String refresh_token = jwtService.generateRefreshToken(user);
+    //TODO ADD METHOD FOR RETURN PROFILE ID
+    String access_token = jwtService.generateAccessToken(user,1L);
+    String refresh_token = jwtService.generateRefreshToken(user,1L);
 
     tokenService.revokeAllUserTokens(user);
     tokenService.saveUserToken(user, access_token);
