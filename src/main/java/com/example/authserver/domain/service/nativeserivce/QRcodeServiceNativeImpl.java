@@ -26,8 +26,6 @@ public class QRcodeServiceNativeImpl implements QRcodeService {
     private  final GenerationQRImageService generationQRImageService;
 
     public Object saveQRcode(QRcodeInsertDto qrCodeInsertDto, Long profileId) throws IOException, WriterException {
-        //TODO SERVICE WITH GENERATION QRIMAGE - DONE
-        //TODO return id qr - IN PROGRESS
         var id = (Long) qrRepository.initQrCode(LocalDateTime.now(), qrCodeInsertDto.getDescription(), new byte[]{}, qrCodeInsertDto.getName(), profileId);
         var result =generationQRImageService.generateQRImage(id);
         var entity = qrRepository.getQREntityById(id);
