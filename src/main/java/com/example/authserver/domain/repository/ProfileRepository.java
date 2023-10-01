@@ -9,8 +9,9 @@ import org.springframework.stereotype.Repository;
 public interface ProfileRepository extends JpaRepository<ProfileEntity, Long> {
 
     @Procedure(name = "profile.insertUser" )
-    Object initProfile(String p_about,String p_last_name,String p_name);
+    Object initProfile(String p_about,String p_last_name,String p_name, String p_mail);
 
+    ProfileEntity getProfileEntityByEmail(String email);
 
 
 }

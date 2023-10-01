@@ -5,4 +5,6 @@ import com.example.authserver.domain.dto.ProfileInitDto;
 public interface ProfileService {
 
     Object saveProfile(ProfileInitDto profileInitDto);
+    Object getProfileIdByEmail(String email);
+
 }

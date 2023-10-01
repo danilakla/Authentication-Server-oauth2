@@ -13,12 +13,14 @@ public class ProfileServiceNativeImpl implements ProfileService {
     private final ProfileRepository profileRepository;
 
     public Object saveProfile(ProfileInitDto profileInitDto) {
-        try {
-            var profileId = (Integer)profileRepository.initProfile(profileInitDto.getAbout(), profileInitDto.getLastName(), profileInitDto.getName());
-        } catch (Exception e) {
-            System.out.println(e);
-
-        }
-        return "good";
+            var profileId = (Long)profileRepository.initProfile(profileInitDto.getAbout(), profileInitDto.getLastName(), profileInitDto.getName(), profileInitDto.getEmail());
+            return profileId;
     }
+
+    @Override
+    public Object getProfileIdByEmail(String email) {
+        return profileRepository.getProfileEntityByEmail(email).getId();
+    }
+
+
 }

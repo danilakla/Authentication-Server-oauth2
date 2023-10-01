@@ -10,6 +10,7 @@ import lombok.Data;
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_about",type = String.class),
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_last_name",type = String.class),
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_name",type = String.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_mail",type = String.class),
 
         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "p_success",type = Integer.class),
 })
@@ -27,6 +28,10 @@ public class ProfileEntity {
 
     @Column(name = "about")
     private String about;
+
+
+    @Column(name = "email")
+    private String email;
 
     @Lob
     private byte[] image;

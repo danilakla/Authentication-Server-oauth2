@@ -14,4 +14,6 @@ public class ProfileInitDto {
     private String lastName;
 
     private String about;
+    private String email;
+
 }

@@ -21,65 +21,69 @@ public class AuthenticationService {
   private final JwtService jwtService;
 
 
-  private final UserService userService;
-  private final AuthenticationManager authenticationManager;
-  private final CustomUsrDetailsService customUserDetailsService;
-  private final ProfileService profileService;
+    private final UserService userService;
+    private final AuthenticationManager authenticationManager;
+    private final CustomUsrDetailsService customUserDetailsService;
 
-  private final TokenService tokenService;
+    private final TokenService tokenService;
 
 
-  private boolean isExit(String userEmail){
-    return  userService.getUserByEmail(userEmail).isPresent();
-  }
-  public AuthenticationResponse register(RegisterRequest request) {
-
-    if(!isExit(request.getEmail())){
-      userService.saveUser(request);
-    }else{
-      return null;
+    private boolean isExit(String userEmail) {
+        return userService.getUserByEmail(userEmail).isPresent();
     }
-    return new AuthenticationResponse();
-  }
-//
-  public Object authenticate(AuthenticationRequest request) {
 
-    UsernamePasswordAuthenticationToken authenticationToken =
-            new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword());
-    Authentication auth = authenticationManager.authenticate(authenticationToken);
+    public AuthenticationResponse register(RegisterRequest request) {
 
-    CustomUsrDetails user = (CustomUsrDetails) customUserDetailsService.loadUserByUsername(request.getEmail());
-    //TODO REFACTORING
-    Long profileId= (Long) profileService.saveProfile(new ProfileInitDto());
-    String access_token = jwtService.generateAccessToken(user, profileId);
-    String refresh_token = jwtService.generateRefreshToken(user, profileId);
-    tokenService.revokeAllUserTokens(user);
-    tokenService.saveUserToken(user, access_token);
-    return new Object(){
-      public final  String acc=access_token;
-      public  final String  ref =      refresh_token;
-    };
+        if (!isExit(request.getEmail())) {
+            userService.saveUser(request);
+            var profile = new ProfileInitDto();
+            profile.setEmail(request.getEmail());
+            profileService.saveProfile(profile);
+        } else {
+            return null;
+        }
+        return new AuthenticationResponse();
+    }
 
-  }
+    //
+    public Object authenticate(AuthenticationRequest request) {
+
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword());
+        Authentication auth = authenticationManager.authenticate(authenticationToken);
+
+        CustomUsrDetails user = (CustomUsrDetails) customUserDetailsService.loadUserByUsername(request.getEmail());
+        var profile = new ProfileInitDto();
+        var profileId = (Long) profileService.getProfileIdByEmail(user.getUsername());
+        profile.setEmail(user.getUsername());
+        String access_token = jwtService.generateAccessToken(user, profileId);
+        String refresh_token = jwtService.generateRefreshToken(user, profileId);
+        tokenService.revokeAllUserTokens(user);
+        tokenService.saveUserToken(user, access_token);
+        return new Object() {
+            public final String acc = access_token;
+            public final String ref = refresh_token;
+        };
+
+    }
 
 
+    public Object refreshToken(
+            String refreshToken
+    ) throws IOException {
 
-  public Object refreshToken(
-          String refreshToken
-  ) throws IOException {
+        String email = jwtService.parseToken(refreshToken);
+        CustomUsrDetails user = (CustomUsrDetails) customUserDetailsService.loadUserByUsername(email);
+        var profileId = profileService.getProfileIdByEmail(user.getUsername());
+        String access_token = jwtService.generateAccessToken(user, (Long) profileId);
+        String refresh_token = jwtService.generateRefreshToken(user, (Long) profileId);
 
-    String email = jwtService.parseToken(refreshToken);
-    CustomUsrDetails user = (CustomUsrDetails) customUserDetailsService.loadUserByUsername(email);
-    //TODO ADD METHOD FOR RETURN PROFILE ID
-    String access_token = jwtService.generateAccessToken(user,1L);
-    String refresh_token = jwtService.generateRefreshToken(user,1L);
+        tokenService.revokeAllUserTokens(user);
+        tokenService.saveUserToken(user, access_token);
+        return new Object() {
+            public final String acc = access_token;
+            public final String ref = refresh_token;
+        };
 
-    tokenService.revokeAllUserTokens(user);
-    tokenService.saveUserToken(user, access_token);
-    return new Object(){
-      public final  String acc=access_token;
-      public  final String  ref =      refresh_token;
-    };
-
-  }
+    }
 }
