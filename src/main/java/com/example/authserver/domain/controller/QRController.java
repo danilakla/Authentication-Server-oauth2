@@ -8,6 +8,7 @@ import com.google.zxing.WriterException;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,25 +30,22 @@ public class QRController {
         return 1;
 
     }
-    //TODO ADD QUERY
     @DeleteMapping("/deleteQRCode")
-    public  Object deleteQRCode(Long qrid){
+    public  Object deleteQRCode(@RequestParam("qrId") Long qrid){
         qRcodeService.deleteQRcodeById(qrid);
 
         return  null;
     }
 
-    //TODO ADD QUERY
     @PostMapping("/addContentToQR")
-    public  Object addContentToQR(List<MultipartFile> mediaFiles){
-        qRcodeService.addListContent(mediaFiles, 1l);
+    public  Object addContentToQR(@RequestParam("qrId") Long qrId, List<MultipartFile> mediaFiles){
+        qRcodeService.addListContent(mediaFiles, qrId);
         return  null;
 
     }
 
-    //TODO ADD QUERY
     @PostMapping("/updateQrCode")
-    public  Object updateQrCode(QRcodeUpdateDto qRcodeUpdateDto){
+    public  Object updateQrCode( QRcodeUpdateDto qRcodeUpdateDto){
         qRcodeService.updateQrCode(qRcodeUpdateDto);
         return  null;
 

@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,9 +28,9 @@ public class QRcodeServiceNativeImpl implements QRcodeService {
 
     public Object saveQRcode(QRcodeInsertDto qrCodeInsertDto, Long profileId) throws IOException, WriterException {
         var id = (Long) qrRepository.initQrCode(LocalDateTime.now(), qrCodeInsertDto.getDescription(), new byte[]{}, qrCodeInsertDto.getName(), profileId);
-        var result =generationQRImageService.generateQRImage(id);
+        var qrImage = generationQRImageService.generateQRImage(id);
         var entity = qrRepository.getQREntityById(id);
-        entity.setImage(result);
+        entity.setImage(qrImage);
         var updatedEntity = saveContentsToQr(entity, qrCodeInsertDto.getContents());
         qrRepository.save(updatedEntity);
         return id;
@@ -47,19 +48,23 @@ public class QRcodeServiceNativeImpl implements QRcodeService {
     }
 
     private QREntity saveContentsToQr(QREntity entity, List<MultipartFile> qrCodeInsertDto){
+        //TODO TEST THE ENTITY BEHAVIOR WITH EMPTY LIST
         if(entity.getContentEntities()!=null && (!entity.getContentEntities().isEmpty())){
-            for (var item :
-                    qrCodeInsertDto) {
-                ContentEntity content = new ContentEntity();
-                try {
-                    content.setData(item.getBytes());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                content.setFileName(item.getName());
-                content.setExtension("default");
-                entity.getContentEntities().add(content);
+
+        }else{
+            entity.setContentEntities(new ArrayList<>());
+        }
+        for (var item :
+                qrCodeInsertDto) {
+            ContentEntity content = new ContentEntity();
+            try {
+                content.setData(item.getBytes());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
+            content.setFileName(item.getName());
+            content.setExtension("default");
+            entity.getContentEntities().add(content);
         }
         return  entity;
     }

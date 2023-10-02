@@ -23,6 +23,7 @@ public class AuthenticationService {
 
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
+
     private final CustomUsrDetailsService customUserDetailsService;
     private final ProfileService profileService;
 
@@ -54,9 +55,7 @@ public class AuthenticationService {
         Authentication auth = authenticationManager.authenticate(authenticationToken);
 
         CustomUsrDetails user = (CustomUsrDetails) customUserDetailsService.loadUserByUsername(request.getEmail());
-        var profile = new ProfileInitDto();
         var profileId = (Long) profileService.getProfileIdByEmail(user.getUsername());
-        profile.setEmail(user.getUsername());
         String access_token = jwtService.generateAccessToken(user, profileId);
         String refresh_token = jwtService.generateRefreshToken(user, profileId);
         tokenService.revokeAllUserTokens(user);
