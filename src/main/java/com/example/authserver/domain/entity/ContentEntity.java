@@ -14,11 +14,11 @@ import java.util.List;
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_qrcode_id",type = Long.class),
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_extension",type = String.class),
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_filetype_id",type = Long.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "p_success",type = Integer.class),
+        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "p_success",type = Long.class),
 })
 @NamedStoredProcedureQuery(name = "contents.deleteContent",procedureName = "DELETE_CONTENTS",parameters = {
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_id",type = Long.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "p_success",type = Integer.class),
+        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "p_success",type = Long.class),
 })
 public class ContentEntity {
     @Id

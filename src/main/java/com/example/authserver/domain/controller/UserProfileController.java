@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 
-public class ProfileController {
+public class UserProfileController {
 
     private  final ProfileService profileService;
 

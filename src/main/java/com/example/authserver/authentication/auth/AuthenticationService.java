@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
+
 @RequiredArgsConstructor
 public class AuthenticationService {
     private final JwtService jwtService;

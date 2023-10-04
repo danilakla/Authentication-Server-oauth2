@@ -12,7 +12,7 @@ import lombok.Data;
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_name",type = String.class),
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_mail",type = String.class),
 
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "p_success",type = Integer.class),
+        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "p_success",type = Long.class),
 })
 public class ProfileEntity {
     @Id
