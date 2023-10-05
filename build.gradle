@@ -38,6 +38,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.springframework.session:spring-session-core'
 	implementation 'com.oracle.database.jdbc:ojdbc11'
+	implementation 'com.fasterxml.jackson.core:jackson-core'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
 	implementation 'org.flywaydb:flyway-core'

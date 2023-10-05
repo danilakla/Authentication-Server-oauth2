@@ -5,7 +5,9 @@ import com.example.authserver.authentication.auth.AuthenticationService;
 import com.example.authserver.authentication.auth.RegisterRequest;
 import com.example.authserver.authentication.security.CustomUsrDetailsService;
 import com.example.authserver.authentication.security.JwtService;
+import com.example.authserver.util.UtilService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +18,14 @@ import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AuthController {
 
     private final JwtService jwtService;
     private final AuthenticationManager authManager;
     private final CustomUsrDetailsService usrDetailsService;
     private final AuthenticationService authenticationService;
+    private final UtilService utilService;
 
     @GetMapping("/testUser")
     public   String sdasds(){
@@ -51,9 +54,12 @@ public class AuthController {
     }
     @PostMapping("/authenticate")
     public ResponseEntity<Object> authenticate(
+            HttpServletResponse response,
             @RequestBody AuthenticationRequest request
     ) {
-        return ResponseEntity.ok(authenticationService.authenticate(request));
+        var tokens  = authenticationService.authenticate(request);
+        utilService.setRefreshTokenCookie(tokens.getAcc(), response);
+        return ResponseEntity.ok(tokens);
     }
 
     record RefreshTokenResponse(String access_jwt_token, String refresh_jwt_token) {};

@@ -3,7 +3,7 @@ package com.example.authserver.domain.controller;
 import com.example.authserver.domain.dto.QRcodeInsertDto;
 import com.example.authserver.domain.dto.QRcodeUpdateDto;
 import com.example.authserver.domain.service.QRcodeService;
-import com.example.authserver.domain.util.UtilService;
+import com.example.authserver.util.UtilService;
 import com.google.zxing.WriterException;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;

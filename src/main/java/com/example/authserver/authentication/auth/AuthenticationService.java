@@ -1,5 +1,6 @@
 package com.example.authserver.authentication.auth;
 
+import com.example.authserver.authentication.dtos.Tokens;
 import com.example.authserver.authentication.security.CustomUsrDetails;
 import com.example.authserver.authentication.security.CustomUsrDetailsService;
 import com.example.authserver.authentication.security.JwtService;
@@ -49,7 +50,7 @@ public class AuthenticationService {
     }
 
     //
-    public Object authenticate(AuthenticationRequest request) {
+    public Tokens authenticate(AuthenticationRequest request) {
 
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword());
@@ -61,10 +62,8 @@ public class AuthenticationService {
         String refresh_token = jwtService.generateRefreshToken(user, profileId);
         tokenService.revokeAllUserTokens(user);
         tokenService.saveUserToken(user, access_token);
-        return new Object() {
-            public final String acc = access_token;
-            public final String ref = refresh_token;
-        };
+
+        return new Tokens(refresh_token, access_token);
 
     }
 
