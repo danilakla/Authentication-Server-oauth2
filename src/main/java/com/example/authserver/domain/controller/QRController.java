@@ -6,10 +6,7 @@ import com.example.authserver.domain.service.QRcodeService;
 import com.example.authserver.util.UtilService;
 import com.google.zxing.WriterException;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -17,6 +14,8 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
+@CrossOrigin
+
 @AllArgsConstructor
 public class QRController {
 

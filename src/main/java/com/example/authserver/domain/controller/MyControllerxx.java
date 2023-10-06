@@ -3,6 +3,7 @@ package com.example.authserver.domain.controller;
 import com.example.authserver.authentication.entity.UserEntity;
 import com.example.authserver.authentication.security.CustomUsrDetails;
 import com.example.authserver.authentication.security.JwtService;
+import com.example.authserver.domain.dto.QRcodeInsertDto;
 import com.example.authserver.domain.repository.ProfileRepository;
 import com.example.authserver.domain.repository.QRRepository;
 import com.example.authserver.domain.service.GenerationQRImageService;
@@ -24,6 +25,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.HashSet;
 
 @RestController
@@ -43,6 +45,16 @@ public class MyControllerxx {
         cd.setEmail("dasdas");
         return    tokenService.generateAccessToken(new CustomUsrDetails(cd),1L);
 
+    }
+
+    @PostMapping("/upload")
+    public Object uploadFile(@ModelAttribute QRcodeInsertDto dto) throws IOException {
+        // Handle the data and uploaded files here
+      //  HttpHeaders headers = new HttpHeaders();
+      //  headers.setContentType(MediaType.IMAGE_JPEG); // or MediaType.IMAGE_JPEG
+        String base64String = Base64.getEncoder().encodeToString(dto.getContents().get(0).getBytes());
+
+        return base64String;    
     }
 
     @PostMapping(value = "/image", produces = { MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE } )

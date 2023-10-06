@@ -103,6 +103,7 @@ public class AppSecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                         .requestMatchers("/test12").permitAll()
                         .requestMatchers("/image").permitAll()
+                        .requestMatchers("/upload").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/user").permitAll()
                         .requestMatchers("/user").authenticated()
