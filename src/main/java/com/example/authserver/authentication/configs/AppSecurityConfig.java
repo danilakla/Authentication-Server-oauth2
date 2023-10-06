@@ -1,6 +1,5 @@
 package com.example.authserver.authentication.configs;
 
-import com.example.authserver.authentication.filter.CorsFilter;
 import com.example.authserver.authentication.repository.UserRepository;
 import com.example.authserver.authentication.security.CustomUsrDetailsService;
 import com.example.authserver.authentication.security.JwtService;
@@ -28,7 +27,6 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 @EnableWebSecurity
@@ -40,8 +38,6 @@ public class AppSecurityConfig {
     private final RsaProperties rsaKeys;
     private final LogoutHandler logoutHandler;
     private final UserRepository userRepo;
-
-    private final CorsFilter corsFilter;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -82,9 +78,8 @@ public class AppSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http
-                .addFilterBefore(corsFilter, ChannelProcessingFilter.class)
-                .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.disable())
+                .csrf(csrf -> csrf.disable())
                 .authorizeRequests(auth -> auth
                         .requestMatchers("/test12").permitAll()
                         .requestMatchers("/image").permitAll()
