@@ -17,4 +17,6 @@ public interface ContentRepository extends JpaRepository<ContentEntity, Long> {
     @Procedure(name = "contents.deleteContent" )
     Object deleteContent( Long p_id);
 
+    Object getContentEntityById( Long p_id);
+
 }

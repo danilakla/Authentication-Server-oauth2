@@ -107,6 +107,7 @@ public class AppSecurityConfig {
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/user").permitAll()
                         .requestMatchers("/user").authenticated()
+                        .requestMatchers("/createQRCode").authenticated()
                         .requestMatchers("/test").authenticated()
                         .requestMatchers("/testUser").hasAnyAuthority("SCOPE_user","SCOPE_admin" )
                         .requestMatchers("/testAdmin").hasAuthority("SCOPE_admin")

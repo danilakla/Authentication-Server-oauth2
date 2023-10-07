@@ -44,9 +44,7 @@ public class ContentEntity {
             inverseJoinColumns = @JoinColumn(name = "filetype_id")
     )
     private List<FileTypeEntity> fileTypes;
-
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "qrcode_id")
-    public QREntity qrCode;
+    private QREntity qrCode;
+
 }

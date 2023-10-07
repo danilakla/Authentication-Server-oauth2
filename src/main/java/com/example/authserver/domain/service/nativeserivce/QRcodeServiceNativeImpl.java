@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,7 +32,8 @@ public class QRcodeServiceNativeImpl implements QRcodeService {
         entity.setImage(qrImage);
         var updatedEntity = saveContentsToQr(entity, qrCodeInsertDto.getContents());
         qrRepository.save(updatedEntity);
-        return id;
+
+        return qrImage;
 
     }
 
@@ -49,11 +49,7 @@ public class QRcodeServiceNativeImpl implements QRcodeService {
 
     private QREntity saveContentsToQr(QREntity entity, List<MultipartFile> qrCodeInsertDto){
         //TODO TEST THE ENTITY BEHAVIOR WITH EMPTY LIST
-        if(entity.getContentEntities()!=null && (!entity.getContentEntities().isEmpty())){
 
-        }else{
-            entity.setContentEntities(new ArrayList<>());
-        }
         for (var item :
                 qrCodeInsertDto) {
             ContentEntity content = new ContentEntity();
@@ -64,6 +60,7 @@ public class QRcodeServiceNativeImpl implements QRcodeService {
             }
             content.setFileName(item.getName());
             content.setExtension("default");
+            content.setQrCode(entity);
             entity.getContentEntities().add(content);
         }
         return  entity;

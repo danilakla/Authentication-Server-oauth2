@@ -23,4 +23,5 @@ public interface QRRepository extends JpaRepository<QREntity, Long> {
 
     QREntity getQREntityById(Long id);
 
+
 }
