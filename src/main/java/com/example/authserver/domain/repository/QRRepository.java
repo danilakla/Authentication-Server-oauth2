@@ -17,7 +17,7 @@ public interface QRRepository extends JpaRepository<QREntity, Long> {
     @Procedure(name = "qrcode.deleteQR" )
     Object deleteQrCode(Long p_id);
 
-    @Procedure(name = "qrcode.insertQR" )
+    @Procedure(name = "qrcode.updateQR" )
     Object updatetQrCode( Long p_id, String p_description,
                       String p_name);
 

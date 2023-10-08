@@ -13,8 +13,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 
 public class UserServiceImpl implements UserService {
+
+
     private final UserRepository userRepository;
     private final RoleService roleService;
+
     private final PasswordEncoder passwordEncoder;
 
     public UserEntity saveUser(RegisterRequest request) {

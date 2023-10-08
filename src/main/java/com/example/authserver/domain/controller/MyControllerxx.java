@@ -33,42 +33,42 @@ import java.util.HashSet;
 @AllArgsConstructor
 public class MyControllerxx {
 
-    private  final QRRepository qrRepository;
-    private  final ProfileRepository profileRepository;
-    private  final GenerationQRImageService test;
+    private final QRRepository qrRepository;
+    private final ProfileRepository profileRepository;
+    private final GenerationQRImageService test;
     private final JwtService tokenService;
 
     @GetMapping("/test12")
-    public String tet(Authorization ddas){
-        var cd=new UserEntity();
+    public String tet(Authorization ddas) {
+        var cd = new UserEntity();
         cd.setRoles(new HashSet<>());
         cd.setEmail("dasdas");
-        return    tokenService.generateAccessToken(new CustomUsrDetails(cd),1L);
+        return tokenService.generateAccessToken(new CustomUsrDetails(cd), 1L);
 
     }
 
     @PostMapping("/upload")
     public Object uploadFile(@ModelAttribute QRcodeInsertDto dto) throws IOException {
         // Handle the data and uploaded files here
-      //  HttpHeaders headers = new HttpHeaders();
-      //  headers.setContentType(MediaType.IMAGE_JPEG); // or MediaType.IMAGE_JPEG
+        //  HttpHeaders headers = new HttpHeaders();
+        //  headers.setContentType(MediaType.IMAGE_JPEG); // or MediaType.IMAGE_JPEG
         String base64String = Base64.getEncoder().encodeToString(dto.getContents().get(0).getBytes());
 
-        return base64String;    
+        return base64String;
     }
 
-    @PostMapping(value = "/image", produces = { MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE } )
+    @PostMapping(value = "/image", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
     public ResponseEntity<byte[]> testFileds(@RequestParam("mediaData") MultipartFile mediaData) throws IOException, WriterException {
 
-        var type=mediaData.getBytes();
-      var v=new byte[]{1,2,3,};
+        var type = mediaData.getBytes();
+        var v = new byte[]{1, 2, 3,};
 //        var imageBytes= test.generateQRImage(1L);
 
-        String qrCodeValue= "https://www.google.com/?id=10"; //clientUrl+"?qrid="+qrId;
-        var qrCodeWriter=new QRCodeWriter();
-        BitMatrix bitMatrix= qrCodeWriter.encode(qrCodeValue, BarcodeFormat.QR_CODE, 700, 700);
+        String qrCodeValue = "https://www.google.com/?id=10"; //clientUrl+"?qrid="+qrId;
+        var qrCodeWriter = new QRCodeWriter();
+        BitMatrix bitMatrix = qrCodeWriter.encode(qrCodeValue, BarcodeFormat.QR_CODE, 700, 700);
 
-        BufferedImage qrCodeImage  = new BufferedImage(700,700, BufferedImage.TYPE_INT_RGB);
+        BufferedImage qrCodeImage = new BufferedImage(700, 700, BufferedImage.TYPE_INT_RGB);
         qrCodeImage.createGraphics();
 
         // Customize the QR code appearance

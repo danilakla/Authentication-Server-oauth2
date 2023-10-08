@@ -66,6 +66,7 @@ public class QRcodeServiceNativeImpl implements QRcodeService {
         return  entity;
     }
     public Object addListContent(List<MultipartFile> contentInsertDtos, Long qrId) {
+        //TODO SOME WRONG WITH PERFORMANCE TIME
         var entity = qrRepository.getQREntityById(qrId);
         var updatedEntity = saveContentsToQr(entity, contentInsertDtos);
         qrRepository.save(updatedEntity);
