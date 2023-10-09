@@ -11,7 +11,7 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
 
     @Procedure(name = "post.insertPost" )
 
-    Object createPost(String p_description, Boolean p_is_public, Long p_qr_id);
+    Object createPost(String p_description, Long p_is_public, Long p_qr_id);
 
 
     @Procedure(name = "post.deletePost" )
@@ -25,7 +25,7 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
 
     @Procedure(name = "post.updateAccessPost" )
 
-    Object updateAccess(Long p_post_id,Boolean p_is_public);
+    Object updateAccess(Long p_post_id,Long p_is_public);
 
     PostEntity getPostEntityById(Long id);
 }

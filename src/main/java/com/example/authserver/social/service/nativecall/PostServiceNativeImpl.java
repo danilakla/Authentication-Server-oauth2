@@ -17,7 +17,7 @@ public class PostServiceNativeImpl  implements PostService {
 
     @Override
     public Object createPost(PostCreateDto createDto) {
-        return postRepository.createPost(createDto.getDescription(),createDto.getIsPublic(), createDto.getQrId());
+        return postRepository.createPost(createDto.getDescription(),createDto.getIsPublic()==true?1l:0l, createDto.getQrId());
     }
 
     @Override
@@ -32,7 +32,7 @@ public class PostServiceNativeImpl  implements PostService {
 
     @Override
     public Object updateAccessPost(Long postId, PostUpdateAccessDto postUpdateAccessDto) {
-        return postRepository.updateAccess(postId, postUpdateAccessDto.getIsPublic()
+        return postRepository.updateAccess(postId,postUpdateAccessDto.getIsPublic()==true?1l:0l
         );
     }
 

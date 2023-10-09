@@ -48,7 +48,6 @@ public class QRController {
 
     @PutMapping("/updateQrCode")
     public  Object updateQrCode(@RequestParam("qrId") Long qrId, QRcodeUpdateDto qRcodeUpdateDto){
-        //TODO REPLACE IMPL PLACE THE QR CODE TO SERVICE LIKE PARAMS
         qRcodeUpdateDto.setId(qrId);
         qRcodeService.updateQrCode(qRcodeUpdateDto);
         return  null;

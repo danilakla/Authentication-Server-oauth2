@@ -48,7 +48,6 @@ public class QRcodeServiceNativeImpl implements QRcodeService {
     }
 
     private QREntity saveContentsToQr(QREntity entity, List<MultipartFile> qrCodeInsertDto){
-        //TODO TEST THE ENTITY BEHAVIOR WITH EMPTY LIST
 
         for (var item :
                 qrCodeInsertDto) {
