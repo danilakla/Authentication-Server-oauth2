@@ -9,6 +9,12 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name = "comments")
+@NamedStoredProcedureQuery(name = "comments.addComment",procedureName = "ADD_COMMENT",parameters = {
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_text",type = String.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_post_id",type = Long.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_profile_id",type = Long.class),
+        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "p_success",type = Long.class),
+})
 
 public class CommentEntity {
     @Id
