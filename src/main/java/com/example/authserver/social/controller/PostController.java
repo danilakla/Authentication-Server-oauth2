@@ -4,46 +4,57 @@ import com.example.authserver.social.dto.PostCreateDto;
 import com.example.authserver.social.dto.PostUpdateAccessDto;
 import com.example.authserver.social.dto.PostUpdateDescriptionDto;
 import com.example.authserver.social.service.PostService;
+import com.example.authserver.util.UtilService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
 @CrossOrigin
 @AllArgsConstructor
 public class PostController {
-    private  final PostService postService;
+    private final PostService postService;
+    private final UtilService utilService;
 
     @PostMapping("/createPost")
-    public Object createPost(PostCreateDto postCreateDto
-    ){
-        return  postService.createPost(postCreateDto);
+    public Object createPost(Principal principal, PostCreateDto postCreateDto
+    ) {
+        Long profileId = utilService.retrieveFromClaimsProfileId(principal);
+        return postService.createPost(postCreateDto, profileId);
     }
 
     @PostMapping("/putReaction")
-    public Object putReaction(@RequestParam("postId") Long postId
-    ){
-        return  postService.putReaction(postId);
+    public Object putReaction(Principal principal, @RequestParam("postId") Long postId
+    ) {
+        Long profileId = utilService.retrieveFromClaimsProfileId(principal);
+        return postService.putReaction(postId, profileId);
     }
 
 
     @DeleteMapping("/deletePost")
-    public Object createPost(@RequestParam("postId") Long postId
-    ){
-        return  postService.deletePost(postId);
+    public Object createPost(Principal principal, @RequestParam("postId") Long postId
+    ) {
+        Long profileId = utilService.retrieveFromClaimsProfileId(principal);
+        return postService.deletePost(postId, profileId);
     }
 
 
     @PutMapping("/updateDescriptionPost")
-    public Object createPost(@RequestParam("postId") Long postId,
+    public Object createPost(Principal principal, @RequestParam("postId") Long postId,
                              PostUpdateDescriptionDto postUpdateDescriptionDto
-    ){
-        return  postService.updateDescriptionPost(postId, postUpdateDescriptionDto);
+    ) {
+        Long profileId = utilService.retrieveFromClaimsProfileId(principal);
+
+        return postService.updateDescriptionPost(postId, postUpdateDescriptionDto, profileId);
     }
 
     @PutMapping("/updateAccessPost")
-    public Object createPost(@RequestParam("postId") Long postId,
+    public Object createPost(Principal principal, @RequestParam("postId") Long postId,
                              PostUpdateAccessDto postUpdateAccessDto
-    ){
-        return  postService.updateAccessPost(postId, postUpdateAccessDto);
+    ) {
+        Long profileId = utilService.retrieveFromClaimsProfileId(principal);
+
+        return postService.updateAccessPost(postId, postUpdateAccessDto, profileId);
     }
 }

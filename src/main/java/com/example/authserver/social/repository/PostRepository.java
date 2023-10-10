@@ -11,21 +11,26 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
 
     @Procedure(name = "post.insertPost" )
 
-    Object createPost(String p_description, Long p_is_public, Long p_qr_id);
+    Object createPost(String p_description, Long p_is_public, Long p_qr_id,Long p_profile_id);
 
 
     @Procedure(name = "post.deletePost" )
 
-    Object deletePost(Long p_post_id);
+    Object deletePost(Long p_post_id, Long p_profile_id);
 
     @Procedure(name = "post.updateDescriptionPost" )
 
-    Object updateDescription(Long p_post_id,String p_description);
+    Object updateDescription(Long p_post_id,String p_description, Long p_profile_id);
 
 
     @Procedure(name = "post.updateAccessPost" )
 
-    Object updateAccess(Long p_post_id,Long p_is_public);
+    Object updateAccess(Long p_post_id,Long p_is_public, Long p_profile_id);
 
     PostEntity getPostEntityById(Long id);
+
+    @Procedure(name = "post.putReaction" )
+
+    Object putReaction(Long p_post_id, Long p_profile_id);
+
 }

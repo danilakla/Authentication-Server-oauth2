@@ -15,22 +15,32 @@ import java.util.List;
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_description",type = String.class),
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_is_public",type = Long.class),
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_qr_id",type = Long.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_profile_id",type = Long.class),
         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "p_success",type = Long.class),
 })
 
 @NamedStoredProcedureQuery(name = "post.deletePost",procedureName = "DELETE_POST",parameters = {
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_post_id",type = Long.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_profile_id",type = Long.class),
         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "p_success",type = Long.class),
 })
 
 @NamedStoredProcedureQuery(name = "post.updateDescriptionPost",procedureName = "UPDATE_DESCRIPTION",parameters = {
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_post_id",type = Long.class),
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_description",type = String.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_profile_id",type = Long.class),
         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "p_success",type = Long.class),
 })
 @NamedStoredProcedureQuery(name = "post.updateAccessPost",procedureName = "UPDATE_ACCESS",parameters = {
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_post_id",type = Long.class),
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_is_public",type = Long.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_profile_id",type = Long.class),
+        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "p_success",type = Long.class),
+})
+
+@NamedStoredProcedureQuery(name = "post.putReaction",procedureName = "PUT_REACTION_TO_Post",parameters = {
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_post_id",type = Long.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_profile_id",type = Long.class),
         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "p_success",type = Long.class),
 })
 public class PostEntity {
@@ -47,14 +57,18 @@ public class PostEntity {
     @Column(name = "creationDate")
     private Date creationDate;
 
-    @Column(name = "reactionCount")
-    private Long reactionCount;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "post_profile",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "profile_id")
+    )
+    private List<ProfileEntity> profiles;
 
     @Column(name = "isPublic")
     public boolean isPublic;
-//todo add profile id is mine or not when delete item
-    //todo reaction make something with that.
-    //TODO change procedure mean need to use profile id to identidy post
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "qr_id")
     public QREntity  qrEntity;

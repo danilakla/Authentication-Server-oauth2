@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
 
 
-    @Procedure(name = "post.insertPost" )
+    @Procedure(name = "comments.addComment" )
 
     Object addComment(String p_text, Long p_post_id, Long p_profile_id);
 
