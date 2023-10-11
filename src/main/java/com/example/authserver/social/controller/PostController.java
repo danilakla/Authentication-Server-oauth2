@@ -24,24 +24,25 @@ public class PostController {
         return postService.createPost(postCreateDto, profileId);
     }
 
-    @PostMapping("/putReaction")
-    public Object putReaction(Principal principal, @RequestParam("postId") Long postId
+    @PutMapping("/putReaction")
+    public Object putReaction(@RequestParam("postId") Long postId,Principal principal
     ) {
+
         Long profileId = utilService.retrieveFromClaimsProfileId(principal);
         return postService.putReaction(postId, profileId);
     }
 
 
     @DeleteMapping("/deletePost")
-    public Object createPost(Principal principal, @RequestParam("postId") Long postId
-    ) {
+    public Object deletePost(@RequestParam("postId") Long postId,Principal principal
+                             ) {
         Long profileId = utilService.retrieveFromClaimsProfileId(principal);
         return postService.deletePost(postId, profileId);
     }
 
 
     @PutMapping("/updateDescriptionPost")
-    public Object createPost(Principal principal, @RequestParam("postId") Long postId,
+    public Object updateDesPost(Principal principal, @RequestParam("postId") Long postId,
                              PostUpdateDescriptionDto postUpdateDescriptionDto
     ) {
         Long profileId = utilService.retrieveFromClaimsProfileId(principal);
@@ -50,7 +51,7 @@ public class PostController {
     }
 
     @PutMapping("/updateAccessPost")
-    public Object createPost(Principal principal, @RequestParam("postId") Long postId,
+    public Object createAccPost(Principal principal, @RequestParam("postId") Long postId,
                              PostUpdateAccessDto postUpdateAccessDto
     ) {
         Long profileId = utilService.retrieveFromClaimsProfileId(principal);

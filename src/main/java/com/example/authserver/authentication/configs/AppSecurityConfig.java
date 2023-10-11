@@ -111,6 +111,14 @@ public class AppSecurityConfig {
                         .requestMatchers("/deleteQRCode").authenticated()
                         .requestMatchers("/addContentToQR").authenticated()
                         .requestMatchers("/updateQrCode").authenticated()
+
+                        .requestMatchers("/createPost").authenticated()
+                        .requestMatchers("/putReaction").authenticated()
+                        .requestMatchers("/deletePost").authenticated()
+                        .requestMatchers("/updateDescriptionPost").authenticated()
+                        .requestMatchers("/updateAccessPost").authenticated()
+
+
                         .requestMatchers("/test").authenticated()
                         .requestMatchers("/testUser").hasAnyAuthority("SCOPE_user","SCOPE_admin" )
                         .requestMatchers("/testAdmin").hasAuthority("SCOPE_admin")
