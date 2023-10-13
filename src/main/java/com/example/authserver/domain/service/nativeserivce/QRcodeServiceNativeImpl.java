@@ -24,7 +24,7 @@ public class QRcodeServiceNativeImpl implements QRcodeService {
     public final QRRepository qrRepository;
     public final ContentService contentService;
     private  final GenerationQRImageService generationQRImageService;
-
+//TODO insert content we must set trigger than find by profile maxsize of qr code
     public Object saveQRcode(QRcodeInsertDto qrCodeInsertDto, Long profileId) throws IOException, WriterException {
         var id = (Long) qrRepository.initQrCode(LocalDateTime.now(), qrCodeInsertDto.getDescription(), new byte[]{}, qrCodeInsertDto.getName(), profileId);
         var qrImage = generationQRImageService.generateQRImage(id);
