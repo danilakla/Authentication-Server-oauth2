@@ -73,4 +73,9 @@ public class QRcodeServiceNativeImpl implements QRcodeService {
         return  "good";
     }
 
+    @Override
+    public List<QREntity> getQrCodesById(Long id) {
+        return qrRepository.getAllByProfileId(id);
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.example.authserver.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -44,6 +45,7 @@ public class ContentEntity {
             inverseJoinColumns = @JoinColumn(name = "filetype_id")
     )
     private List<FileTypeEntity> fileTypes;
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     private QREntity qrCode;
 

@@ -1,7 +1,11 @@
 package com.example.authserver.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -10,6 +14,9 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "qrcode")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @NamedStoredProcedureQuery(name = "qrcode.insertQR", procedureName = "INSERT_QRCODE", parameters = {
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_creation_date", type = LocalDateTime.class),
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_description", type = String.class),
@@ -54,7 +61,10 @@ public class QREntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "profile_id")
+
     public ProfileEntity profile;
+
+    @JsonManagedReference
 
     @OneToMany(mappedBy = "qrCode", cascade = CascadeType.ALL, orphanRemoval = true)
 

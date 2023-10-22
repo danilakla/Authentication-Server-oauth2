@@ -3,6 +3,7 @@ package com.example.authserver.domain.controller;
 import com.example.authserver.domain.dto.ContentsDto;
 import com.example.authserver.domain.dto.QRcodeInsertDto;
 import com.example.authserver.domain.dto.QRcodeUpdateDto;
+import com.example.authserver.domain.entity.QREntity;
 import com.example.authserver.domain.repository.ContentRepository;
 import com.example.authserver.domain.service.QRcodeService;
 import com.example.authserver.util.UtilService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -51,6 +53,16 @@ public class QRController {
         qRcodeUpdateDto.setId(qrId);
         qRcodeService.updateQrCode(qRcodeUpdateDto);
         return  null;
+
+    }
+
+    @GetMapping("/getQrCodes")
+    public List<QREntity> getQrCodes(Principal principal) throws IOException, WriterException {
+
+        Long profileId= utilService.retrieveFromClaimsProfileId(principal);
+        var response= qRcodeService.getQrCodesById(  profileId);
+
+        return response;
 
     }
 }

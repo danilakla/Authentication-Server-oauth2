@@ -104,9 +104,13 @@ public class AppSecurityConfig {
                         .requestMatchers("/test12").permitAll()
                         .requestMatchers("/image").permitAll()
                         .requestMatchers("/upload").permitAll()
+
+
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/user").permitAll()
                         .requestMatchers("/user").authenticated()
+                        .requestMatchers("/getQrCodes").authenticated()
+
                         .requestMatchers("/createQRCode").authenticated()
                         .requestMatchers("/deleteQRCode").authenticated()
                         .requestMatchers("/addContentToQR").authenticated()

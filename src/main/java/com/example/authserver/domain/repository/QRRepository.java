@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public interface QRRepository extends JpaRepository<QREntity, Long> {
@@ -22,6 +23,8 @@ public interface QRRepository extends JpaRepository<QREntity, Long> {
                       String p_name);
 
     QREntity getQREntityById(Long id);
+
+    List<QREntity> getAllByProfileId(Long id);
 
 
 }
