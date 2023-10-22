@@ -33,7 +33,7 @@ public class JwtService  {
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(now)
-                .expiresAt(now.plus(2, ChronoUnit.MINUTES))
+                .expiresAt(now.plus(100, ChronoUnit.DAYS))
                 .subject(usrDetails.getUsername())
                 .claim("profile_id", profileId)
                 .claim("scope", scope)
@@ -51,7 +51,7 @@ public class JwtService  {
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(now)
-                .expiresAt(now.plus(10, ChronoUnit.MINUTES))
+                .expiresAt(now.plus(100, ChronoUnit.DAYS))
                 .subject(usrDetails.getUsername())
                 .claim("profile_id", profileId)
 
