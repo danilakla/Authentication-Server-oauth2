@@ -15,7 +15,11 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
 import java.util.List;
+//TODO BY SCANNING THE QR CODE REDIRECT  TO
+// PAGE THAT REPROD THE CONTENT OF THE QR WHERE THE BASIC USER CAN SEE ALL
+// INFO ABOUT CONTAING INFO AND DELETE CONTENT
 
+//TODO DEADLINE
 @RestController
 @CrossOrigin
 

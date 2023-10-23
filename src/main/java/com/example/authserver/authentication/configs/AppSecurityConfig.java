@@ -119,6 +119,8 @@ public class AppSecurityConfig {
                         .requestMatchers("/createPost").authenticated()
                         .requestMatchers("/putReaction").authenticated()
                         .requestMatchers("/deletePost").authenticated()
+                        .requestMatchers("/deleteContent").authenticated()
+                        .requestMatchers("/getContents").authenticated()
                         .requestMatchers("/updateDescriptionPost").authenticated()
                         .requestMatchers("/updateAccessPost").authenticated()
 
