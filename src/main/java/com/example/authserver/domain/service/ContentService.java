@@ -10,5 +10,6 @@ public interface  ContentService {
     Object saveContent(ContentInsertDto contentInsertDto);
     List<ContentEntity> getContentsById(Long id);
     Object deleteContentById(Long id);
+    ContentEntity getContentById(Long id);
 
 }

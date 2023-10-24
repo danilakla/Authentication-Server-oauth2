@@ -45,4 +45,9 @@ public class ContentServiceNativeImpl implements ContentService {
 
     }
 
+    @Override
+    public ContentEntity getContentById(Long id) {
+        return contentRepository.getContentEntityById(id);
+    }
+
 }

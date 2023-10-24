@@ -22,5 +22,7 @@ public interface ContentRepository extends JpaRepository<ContentEntity, Long> {
 
     List<ContentEntity> getAllByQrCodeId(Long id);
 
+    ContentEntity getContentEntityById(Long id);
+
 
 }
