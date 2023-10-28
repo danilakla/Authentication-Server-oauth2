@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PostRepository extends JpaRepository<PostEntity, Long> {
 
@@ -32,5 +34,6 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
     @Procedure(name = "post.putReaction" )
 
     Object putReaction(Long p_post_id, Long p_profile_id);
+    List<PostEntity> getPostEntityByProfileId(Long Id);
 
 }

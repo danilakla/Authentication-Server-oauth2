@@ -3,10 +3,13 @@ package com.example.authserver.social.service.nativecall;
 import com.example.authserver.social.dto.PostCreateDto;
 import com.example.authserver.social.dto.PostUpdateAccessDto;
 import com.example.authserver.social.dto.PostUpdateDescriptionDto;
+import com.example.authserver.social.entity.PostEntity;
 import com.example.authserver.social.repository.PostRepository;
 import com.example.authserver.social.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -39,6 +42,11 @@ public class PostServiceNativeImpl  implements PostService {
     public Object putReaction(Long postId, Long profileId) {
 
         return postRepository.putReaction(postId,profileId);
+    }
+
+    @Override
+    public List<PostEntity> getPostEntityByProfileId(Long Id) {
+        return postRepository.getPostEntityByProfileId(Id);
     }
 
 

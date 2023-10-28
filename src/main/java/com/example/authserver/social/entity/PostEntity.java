@@ -3,13 +3,19 @@ package com.example.authserver.social.entity;
 import com.example.authserver.domain.entity.ProfileEntity;
 import com.example.authserver.domain.entity.QREntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "posts")
 @NamedStoredProcedureQuery(name = "post.insertPost",procedureName = "CREATE_POST",parameters = {
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "p_description",type = String.class),

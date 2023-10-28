@@ -39,6 +39,13 @@ public class PostController {
         Long profileId = utilService.retrieveFromClaimsProfileId(principal);
         return postService.deletePost(postId, profileId);
     }
+    @GetMapping("/getPosts")
+    public Object getPosts(Principal principal
+    ) {
+        Long profileId = utilService.retrieveFromClaimsProfileId(principal);
+        return postService.getPostEntityByProfileId( profileId);
+    }
+
 
 
     @PutMapping("/updateDescriptionPost")
