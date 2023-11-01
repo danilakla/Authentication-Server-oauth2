@@ -46,6 +46,13 @@ public class PostController {
         return postService.getPostEntityByProfileId( profileId);
     }
 
+    @GetMapping("/getPostsGeneral")
+    public Object getPostsGeneral(
+    ) {
+        var data =postService.getPostEntityByPublic( );
+        return  data;
+    }
+
 
 
     @PutMapping("/updateDescriptionPost")

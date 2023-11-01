@@ -17,4 +17,7 @@ public interface PostService {
 
     List<PostEntity> getPostEntityByProfileId(Long Id);
 
+    List<PostEntity> getPostEntityByPublic();
+
+
 }

@@ -2,6 +2,7 @@ package com.example.authserver.social.repository;
 
 import com.example.authserver.social.entity.PostEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.stereotype.Repository;
 
@@ -35,5 +36,9 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
 
     Object putReaction(Long p_post_id, Long p_profile_id);
     List<PostEntity> getPostEntityByProfileId(Long Id);
+    @Query(
+            value = "SELECT * FROM POSTS p WHERE p.IS_PUBLIC = ?1",
+            nativeQuery = true)
+    List<PostEntity> getPostEntityByIsPublic( Long p_is_public);
 
 }

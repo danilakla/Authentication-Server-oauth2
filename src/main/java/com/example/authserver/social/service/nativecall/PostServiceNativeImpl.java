@@ -49,5 +49,10 @@ public class PostServiceNativeImpl  implements PostService {
         return postRepository.getPostEntityByProfileId(Id);
     }
 
+    @Override
+    public List<PostEntity> getPostEntityByPublic() {
+        return postRepository.getPostEntityByIsPublic(0L);
+    }
+
 
 }
