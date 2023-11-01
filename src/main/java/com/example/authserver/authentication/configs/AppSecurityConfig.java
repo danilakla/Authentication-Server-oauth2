@@ -116,6 +116,8 @@ public class AppSecurityConfig {
                         .requestMatchers("/addContentToQR").authenticated()
                         .requestMatchers("/updateQrCode").authenticated()
 
+                        .requestMatchers("/getUsersPublicPosts").authenticated()
+
 
                         .requestMatchers("/createPost").authenticated()
                         .requestMatchers("/putReaction").authenticated()

@@ -1,6 +1,7 @@
 package com.example.authserver.social.entity;
 
 import com.example.authserver.domain.entity.ProfileEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -30,8 +31,8 @@ public class CommentEntity {
     @Column(name = "creationDate")
     private Date creationDate;
 
-
-    @ManyToOne
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     public PostEntity post;
 
 

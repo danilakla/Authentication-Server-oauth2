@@ -62,7 +62,8 @@ public class PostEntity {
 
     @Column(name = "creationDate")
     private Date creationDate;
-
+    @Column(name = "REACTION_COUNT")
+    private Long reactionCount;
 
 
     @ManyToMany

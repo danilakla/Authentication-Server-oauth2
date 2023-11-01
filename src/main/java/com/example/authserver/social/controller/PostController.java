@@ -46,11 +46,11 @@ public class PostController {
         return postService.getPostEntityByProfileId( profileId);
     }
 
-    @GetMapping("/getPostsGeneral")
-    public Object getPostsGeneral(
+    @GetMapping("/getUsersPublicPosts")
+    public Object getUsersPublicPosts(
     ) {
-        var data =postService.getPostEntityByPublic( );
-        return  data;
+        var post =postService.getPostEntityByPublic( );
+        return  post;
     }
 
 
