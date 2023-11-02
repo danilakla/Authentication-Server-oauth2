@@ -16,6 +16,7 @@ public interface PostService {
     Object putReaction(Long postId, Long profileId);
 
     List<PostEntity> getPostEntityByProfileId(Long Id);
+    PostEntity getPostEntityById(Long id);
 
     List<PostEntity> getPostEntityByPublic();
 

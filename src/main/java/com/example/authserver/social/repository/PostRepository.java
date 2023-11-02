@@ -41,4 +41,8 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
             nativeQuery = true)
     List<PostEntity> getPostEntityByIsPublic( Long p_is_public);
 
+
+
+
+
 }

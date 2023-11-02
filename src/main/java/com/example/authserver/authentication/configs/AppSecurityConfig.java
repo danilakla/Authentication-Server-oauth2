@@ -118,6 +118,7 @@ public class AppSecurityConfig {
 
                         .requestMatchers("/getUsersPublicPosts").authenticated()
 
+                        .requestMatchers("/getPostById").authenticated()
 
                         .requestMatchers("/createPost").authenticated()
                         .requestMatchers("/putReaction").authenticated()

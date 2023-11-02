@@ -24,6 +24,12 @@ public class PostController {
         return postService.createPost(postCreateDto, profileId);
     }
 
+
+    @GetMapping("/getPostById")
+    public Object getPostById(@RequestParam("postId") Long postId
+    ) {
+        return postService.getPostEntityById(postId);
+    }
     @PutMapping("/putReaction")
     public Object putReaction(@RequestParam("postId") Long postId,Principal principal
     ) {
