@@ -20,7 +20,7 @@ select * FROM LOGGER
     @Query(value = """
 select  TO_CHAR(LOGTIME, 'YYYY-MM-DD') AS formatted_date, MAX (QRCOUNT) FROM LOGGER
 GROUP BY TO_CHAR(LOGTIME, 'YYYY-MM-DD')
-ORDER BY formatted_date desc
+ORDER BY formatted_date asc 
       """ ,nativeQuery = true)
     List<Object> getStaticsCountQrcodeForDay();
 }
