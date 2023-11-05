@@ -5,6 +5,7 @@ import com.example.authserver.domain.entity.ContentEntity;
 import com.example.authserver.domain.service.ContentService;
 import com.google.zxing.WriterException;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -19,8 +20,12 @@ public class ContentController {
 
     @DeleteMapping("/deleteContent")
     public Object deleteContent(@RequestParam("id") Long id) {
+        try {
+            return contentService.deleteContentById(id);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
 
-        return contentService.deleteContentById(id);
     }
 
 

@@ -9,10 +9,12 @@ import com.example.authserver.authentication.service.UserService;
 import com.example.authserver.domain.dto.ProfileInitDto;
 import com.example.authserver.domain.service.ProfileService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.IOException;
 
@@ -44,7 +46,7 @@ public class AuthenticationService {
             profile.setEmail(request.getEmail());
             profileService.saveProfile(profile);
         } else {
-            return null;
+            throw new HttpClientErrorException(HttpStatusCode.valueOf(400));
         }
         return new AuthenticationResponse();
     }

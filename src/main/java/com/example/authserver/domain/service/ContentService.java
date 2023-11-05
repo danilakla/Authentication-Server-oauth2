@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface  ContentService {
 
-    Object saveContent(ContentInsertDto contentInsertDto);
+    Object saveContent(ContentInsertDto contentInsertDto) throws Exception;
     List<ContentEntity> getContentsById(Long id);
-    Object deleteContentById(Long id);
+    Object deleteContentById(Long id) throws Exception;
     ContentEntity getContentById(Long id);
 
 }

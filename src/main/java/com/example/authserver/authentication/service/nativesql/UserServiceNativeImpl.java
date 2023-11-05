@@ -7,8 +7,10 @@ import com.example.authserver.authentication.service.RoleService;
 import com.example.authserver.authentication.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Optional;
 
@@ -32,7 +34,7 @@ public class UserServiceNativeImpl implements UserService {
        var res=  userRepository.ProcUserInser(request.getEmail(),passwordEncoder.encode(request.getPassword())
          , roleService.getUserRole().stream().findFirst().get().getId());
 if((Integer) res==0){
-    System.out.println("try again");
+    throw new HttpClientErrorException(HttpStatusCode.valueOf(401));
 }
 
 

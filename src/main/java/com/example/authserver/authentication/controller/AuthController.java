@@ -50,16 +50,28 @@ public class AuthController {
     public ResponseEntity<Object> register(
             @RequestBody RegisterRequest request
     ) {
-        return ResponseEntity.ok(authenticationService.register(request));
+        try{
+            return ResponseEntity.ok(authenticationService.register(request));
+
+        }catch (Exception e){
+        return ResponseEntity.badRequest().build();
+        }
     }
     @PostMapping("/authenticate")
     public ResponseEntity<Object> authenticate(
             HttpServletResponse response,
             @RequestBody AuthenticationRequest request
     ) {
-        var tokens  = authenticationService.authenticate(request);
-        utilService.setRefreshTokenCookie(tokens.getAcc(), response);
-        return ResponseEntity.ok(tokens);
+
+        try{
+
+            var tokens  = authenticationService.authenticate(request);
+            utilService.setRefreshTokenCookie(tokens.getAcc(), response);
+            return ResponseEntity.ok(tokens);
+        }
+        catch (Exception e){
+            return  ResponseEntity.badRequest().build();
+        }
     }
 
     record RefreshTokenResponse(String access_jwt_token, String refresh_jwt_token) {};

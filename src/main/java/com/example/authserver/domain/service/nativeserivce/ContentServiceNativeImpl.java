@@ -15,16 +15,15 @@ public class ContentServiceNativeImpl implements ContentService {
 
     public  final ContentRepository contentRepository;
 
-    public Object saveContent(ContentInsertDto contentInsertDto){
+    public Object saveContent(ContentInsertDto contentInsertDto) throws Exception {
 
-        try{
+
             var isSuccess= contentRepository.addContent(contentInsertDto.getData(),contentInsertDto.getFilename(),contentInsertDto.getQrId(),
                     contentInsertDto.getExtension(),21L);
+        if((Integer)isSuccess!=1){
+            throw new Exception("400");
         }
-        catch (Exception e){
-
-        }
-        return  "good";
+        return  1;
     }
 
     @Override
@@ -33,13 +32,12 @@ public class ContentServiceNativeImpl implements ContentService {
     }
 
 
-    public Object deleteContentById(Long id){
+    public Object deleteContentById(Long id) throws Exception {
 
-        try{
+
             var isSuccess= contentRepository.deleteContent(id);
-        }
-        catch (Exception e){
-
+        if((Integer)isSuccess!=1){
+            throw new Exception("400");
         }
         return  "good";
 
