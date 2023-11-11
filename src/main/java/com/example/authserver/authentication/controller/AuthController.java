@@ -15,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.security.Principal;
 
 @RestController
 @CrossOrigin
@@ -43,6 +44,11 @@ public class AuthController {
     @GetMapping("/test2")
     public   String sdvcafscxz(){
         return "plain 321us test";
+    }
+
+    @GetMapping("/getRole")
+    public   Object getRole(Principal principal){
+        return utilService.retrieveFromTokenScope(principal);
     }
 
 

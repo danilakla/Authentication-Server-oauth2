@@ -19,6 +19,11 @@ public class UtilService {
         return  (Long) profileId;
     }
 
+
+    public Object retrieveFromTokenScope(Principal principal){
+        var credentials =((JwtAuthenticationToken)principal).getCredentials();
+        return ((Jwt)credentials).getClaims().get("scope");
+    }
     public void setRefreshTokenCookie(String refreshToken, HttpServletResponse response) {
         Cookie cookie = new Cookie("refreshToken", refreshToken);
         cookie.setHttpOnly(true);
