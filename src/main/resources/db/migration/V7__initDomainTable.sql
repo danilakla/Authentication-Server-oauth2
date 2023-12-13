@@ -34,7 +34,7 @@ create table CONTENTS
     FILENAME  VARCHAR2(255 char),
     QRCODE_ID NUMBER(19)
         constraint QRCODE_ID_FORKEY
-            references QRCODE,
+            references QRCODE  ON DELETE CASCADE,
     EXTENSION VARCHAR2(255 char)
 )
 /
@@ -55,10 +55,10 @@ create table CONTENTS_FILETYPES
         primary key,
     CONTENT_ID  NUMBER(19) not null
         constraint CONTENT_ID_FORKEY
-            references CONTENTS,
+            references CONTENTS  ON DELETE CASCADE,
     FILETYPE_ID NUMBER(19) not null
         constraint FILETYPE_ID_FORKEY
-            references FILETYPES
+            references FILETYPES  ON DELETE CASCADE
 )
 /
 
