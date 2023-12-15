@@ -26,13 +26,13 @@ public class UserServiceNativeImpl implements UserService {
         var user = UserEntity.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .roles(roleService.getAdminRole())
+                .roles(roleService.getUserRole())
                 .build();
 
 
 
        var res=  userRepository.ProcUserInser(request.getEmail(),passwordEncoder.encode(request.getPassword())
-         , roleService.getAdminRole().stream().findFirst().get().getId());
+         , roleService.getUserRole().stream().findFirst().get().getId());
 if((Integer) res==0){
     throw new HttpClientErrorException(HttpStatusCode.valueOf(401));
 }

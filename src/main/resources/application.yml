@@ -23,12 +23,12 @@ spring:
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
     url:  jdbc:oracle:thin:@localhost:1521/kda_pdb
-    username: kda
+    username: c##admin
     password: 123
   flyway:
     url: jdbc:oracle:thin:@localhost:1521/kda_pdb
     locations: classpath:db/migration
-    user: kda
+    user: c##admin
     password: 123
     baseline-on-migrate: true
 

@@ -2,6 +2,7 @@ package com.example.authserver.domain.repository;
 
 import com.example.authserver.domain.entity.ContentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.stereotype.Repository;
 
@@ -24,5 +25,8 @@ public interface ContentRepository extends JpaRepository<ContentEntity, Long> {
 
     ContentEntity getContentEntityById(Long id);
 
-
+    @Query(
+            value = "SELECT *  FROM  QRCODE  JOIN PROFILES ON QRCODE.PROFILE_ID = PROFILES.ID WHERE QRCODE.ID =?1 AND PROFILES.ID=?2",
+            nativeQuery = true)
+    Object hasUserContent(Long contetn, Long prof);
 }

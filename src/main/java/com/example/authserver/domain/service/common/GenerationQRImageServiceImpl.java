@@ -24,7 +24,7 @@ public class GenerationQRImageServiceImpl  implements GenerationQRImageService {
     private  String clientUrl;
     @Override
     public byte[] generateQRImage(Long qrId) throws WriterException, IOException {
-        String qrCodeValue= "https://www.google.com/?id="+qrId; //clientUrl+"?qrid="+qrId;
+        String qrCodeValue= "http://172.20.10.3:3000/contents?qrId="+qrId; //clientUrl+"?qrid="+qrId;
         var qrCodeWriter=new QRCodeWriter();
 
         BitMatrix bitMatrix= qrCodeWriter.encode(qrCodeValue, BarcodeFormat.QR_CODE, 400, 400);

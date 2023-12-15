@@ -31,6 +31,14 @@ public class ContentServiceNativeImpl implements ContentService {
         return contentRepository.getAllByQrCodeId(id);
     }
 
+    @Override
+    public void hasUserContent(Long profileId, Long contentId) throws Exception {
+        Object valu=  contentRepository.hasUserContent(profileId, contentId );
+        if(valu ==null){
+            throw  new Exception("not your content man");
+        }
+    }
+
 
     public Object deleteContentById(Long id) throws Exception {
 

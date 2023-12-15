@@ -9,6 +9,8 @@ public interface  ContentService {
 
     Object saveContent(ContentInsertDto contentInsertDto) throws Exception;
     List<ContentEntity> getContentsById(Long id);
+
+    void hasUserContent(Long profileId, Long profileIdd) throws Exception;
     Object deleteContentById(Long id) throws Exception;
     ContentEntity getContentById(Long id);
 

@@ -105,6 +105,7 @@ public class AppSecurityConfig {
                         .requestMatchers("/image").permitAll()
                         .requestMatchers("/upload").permitAll()
 
+                                .requestMatchers("/getStaticsCountQrcodeForDay").hasAuthority("SCOPE_admin")
 
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/user").permitAll()
